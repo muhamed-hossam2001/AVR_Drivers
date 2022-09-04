@@ -1,0 +1,124 @@
+
+PORT_Driver.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000c0  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         00000498  00000000  00000000  00000114  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      000007a6  00000000  00000000  000005ac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 55 00 	call	0xaa	; 0xaa <main>
+  64:	0c 94 5e 00 	jmp	0xbc	; 0xbc <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <PORT_VoidInit>:
+#include "PORT_Interface.h"
+#include "PORT_REG.h"
+#include "PORT_private.h"
+
+void PORT_VoidInit()
+{
+  6c:	df 93       	push	r29
+  6e:	cf 93       	push	r28
+  70:	cd b7       	in	r28, 0x3d	; 61
+  72:	de b7       	in	r29, 0x3e	; 62
+DDRA_REG=PORTA_DIR;
+  74:	ea e3       	ldi	r30, 0x3A	; 58
+  76:	f0 e0       	ldi	r31, 0x00	; 0
+  78:	10 82       	st	Z, r1
+DDRB_REG=PORTB_DIR;
+  7a:	e7 e3       	ldi	r30, 0x37	; 55
+  7c:	f0 e0       	ldi	r31, 0x00	; 0
+  7e:	10 82       	st	Z, r1
+DDRC_REG=PORTC_DIR;
+  80:	e4 e3       	ldi	r30, 0x34	; 52
+  82:	f0 e0       	ldi	r31, 0x00	; 0
+  84:	10 82       	st	Z, r1
+DDRD_REG=PORTD_DIR;
+  86:	e1 e3       	ldi	r30, 0x31	; 49
+  88:	f0 e0       	ldi	r31, 0x00	; 0
+  8a:	10 82       	st	Z, r1
+
+PORTA_REG_INITIAL=PORTA_INITIAL_VALUE;
+  8c:	eb e3       	ldi	r30, 0x3B	; 59
+  8e:	f0 e0       	ldi	r31, 0x00	; 0
+  90:	10 82       	st	Z, r1
+PORTB_REG_INITIAL=PORTB_INITIAL_VALUE;
+  92:	e8 e3       	ldi	r30, 0x38	; 56
+  94:	f0 e0       	ldi	r31, 0x00	; 0
+  96:	10 82       	st	Z, r1
+PORTC_REG_INITIAL=PORTC_INITIAL_VALUE;
+  98:	e5 e3       	ldi	r30, 0x35	; 53
+  9a:	f0 e0       	ldi	r31, 0x00	; 0
+  9c:	10 82       	st	Z, r1
+PORTD_REG_INITIAL=PORTD_INITIAL_VALUE;
+  9e:	e2 e3       	ldi	r30, 0x32	; 50
+  a0:	f0 e0       	ldi	r31, 0x00	; 0
+  a2:	10 82       	st	Z, r1
+
+}
+  a4:	cf 91       	pop	r28
+  a6:	df 91       	pop	r29
+  a8:	08 95       	ret
+
+000000aa <main>:
+ *      Author: dell
+ */
+
+
+int main(void)
+{
+  aa:	df 93       	push	r29
+  ac:	cf 93       	push	r28
+  ae:	cd b7       	in	r28, 0x3d	; 61
+  b0:	de b7       	in	r29, 0x3e	; 62
+	return 0;
+  b2:	80 e0       	ldi	r24, 0x00	; 0
+  b4:	90 e0       	ldi	r25, 0x00	; 0
+}
+  b6:	cf 91       	pop	r28
+  b8:	df 91       	pop	r29
+  ba:	08 95       	ret
+
+000000bc <_exit>:
+  bc:	f8 94       	cli
+
+000000be <__stop_program>:
+  be:	ff cf       	rjmp	.-2      	; 0xbe <__stop_program>
